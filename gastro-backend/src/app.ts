@@ -14,12 +14,17 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+import authRoutes from "./routes/auth.routes.js";
+
 app.get("/health", (_, res) => {
   res.json({ 
     status: "ok",
     database: AppDataSource.isInitialized ? "connected" : "disconnected"
   });
 });
+
+// Auth routes
+app.use("/api/auth", authRoutes);
 
 // Initialize database and start server
 AppDataSource.initialize()
